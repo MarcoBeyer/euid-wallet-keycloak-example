@@ -1,0 +1,192 @@
+{
+  "realm": "eudi-authentication",
+  "enabled": true,
+  "displayName": "EUDI Authentication Realm",
+  "displayNameHtml": "<div class=\"kc-logo-text\"><span>EU Digital Identity</span></div>",
+  "loginTheme": "keycloak",
+  "accountTheme": "keycloak",
+  "adminTheme": "keycloak",
+  "emailTheme": "keycloak",
+  "internationalizationEnabled": true,
+  "supportedLocales": ["en", "de", "fr", "es", "it"],
+  "defaultLocale": "en",
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "registrationEmailAsUsername": false,
+  "rememberMe": true,
+  "verifyEmail": false,
+  "loginWithEmailAllowed": false,
+  "duplicateEmailsAllowed": true,
+  "resetPasswordAllowed": false,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "permanentLockout": false,
+  "maxFailureWaitSeconds": 900,
+  "minimumQuickLoginWaitSeconds": 60,
+  "waitIncrementSeconds": 60,
+  "quickLoginCheckMilliSeconds": 1000,
+  "maxDeltaTimeSeconds": 43200,
+  "failureFactor": 30,
+  "identityProviders": [{
+    "alias": "eu-digital-wallet",
+    "displayName": "EU Digital Identity Wallet",
+    "providerId": "openid4vp",
+    "enabled": true,
+    "updateProfileFirstLoginMode": "on",
+    "trustEmail": false,
+    "storeToken": false,
+    "addReadTokenRoleOnCreate": false,
+    "authenticateByDefault": false,
+    "linkOnly": false,
+    "firstBrokerLoginFlowAlias": "first broker login",
+    "config": {
+      "walletEndpoint": "https://wallet.example.com",
+      "trustedIssuers": "did:web:issuer1.gov.example,did:web:issuer2.gov.example,did:web:member-state.eu",
+      "requireAgeVerification": "true",
+      "presentationDefinition": "",
+      "maxVPTokenSize": "102400",
+      "validationTimeout": "30",
+      "syncMode": "IMPORT",
+      "hideOnLoginPage": "false"
+    }
+  }],
+  "identityProviderMappers": [{
+    "name": "PID Family Name Mapper",
+    "identityProviderAlias": "eu-digital-wallet",
+    "identityProviderMapper": "attribute-importer",
+    "config": {
+      "syncMode": "INHERIT",
+      "attribute": "family_name",
+      "user.attribute": "lastName"
+    }
+  }, {
+    "name": "PID Given Name Mapper",
+    "identityProviderAlias": "eu-digital-wallet",
+    "identityProviderMapper": "attribute-importer",
+    "config": {
+      "syncMode": "INHERIT",
+      "attribute": "given_name",
+      "user.attribute": "firstName"
+    }
+  }, {
+    "name": "PID Birth Date Mapper",
+    "identityProviderAlias": "eu-digital-wallet",
+    "identityProviderMapper": "attribute-importer",
+    "config": {
+      "syncMode": "INHERIT",
+      "attribute": "birth_date",
+      "user.attribute": "birth_date"
+    }
+  }, {
+    "name": "PID Age Verification Mapper",
+    "identityProviderAlias": "eu-digital-wallet",
+    "identityProviderMapper": "attribute-importer",
+    "config": {
+      "syncMode": "INHERIT",
+      "attribute": "age_over_18",
+      "user.attribute": "age_over_18"
+    }
+  }, {
+    "name": "PID Nationality Mapper",
+    "identityProviderAlias": "eu-digital-wallet",
+    "identityProviderMapper": "attribute-importer",
+    "config": {
+      "syncMode": "INHERIT",
+      "attribute": "nationality",
+      "user.attribute": "nationality"
+    }
+  }],
+  "authenticationFlows": [{
+    "alias": "pid-authentication-flow",
+    "description": "Authentication flow for PID credentials",
+    "providerId": "basic-flow",
+    "topLevel": true,
+    "builtIn": false,
+    "authenticationExecutions": [{
+      "authenticator": "identity-provider-redirector",
+      "requirement": "ALTERNATIVE",
+      "priority": 10,
+      "authenticatorConfig": "eu-digital-wallet-config"
+    }]
+  }],
+  "authenticatorConfig": [{
+    "alias": "eu-digital-wallet-config",
+    "config": {
+      "defaultProvider": "eu-digital-wallet"
+    }
+  }],
+  "roles": {
+    "realm": [{
+      "name": "pid-verified",
+      "description": "User verified with EU Digital Identity PID",
+      "composite": false,
+      "clientRole": false
+    }, {
+      "name": "adult-verified",
+      "description": "User verified as adult via PID",
+      "composite": false,
+      "clientRole": false
+    }, {
+      "name": "eu-citizen",
+      "description": "EU citizen verified via PID",
+      "composite": false,
+      "clientRole": false
+    }]
+  },
+  "defaultRoles": ["offline_access", "uma_authorization"],
+  "requiredCredentials": [],
+  "otpPolicyType": "totp",
+  "otpPolicyAlgorithm": "HmacSHA1",
+  "otpPolicyInitialCounter": 0,
+  "otpPolicyDigits": 6,
+  "otpPolicyLookAheadWindow": 1,
+  "otpPolicyPeriod": 30,
+  "webAuthnPolicyRpEntityName": "keycloak",
+  "webAuthnPolicySignatureAlgorithms": ["ES256"],
+  "webAuthnPolicyRpId": "",
+  "webAuthnPolicyAttestationConveyancePreference": "not specified",
+  "webAuthnPolicyAuthenticatorAttachment": "not specified",
+  "webAuthnPolicyRequireResidentKey": "not specified",
+  "webAuthnPolicyUserVerificationRequirement": "not specified",
+  "webAuthnPolicyCreateTimeout": 0,
+  "webAuthnPolicyAvoidSameAuthenticatorRegister": false,
+  "scopeMappings": [],
+  "clientScopeMappings": {},
+  "clients": [],
+  "clientScopes": [],
+  "protocolMappers": [],
+  "browserSecurityHeaders": {
+    "contentSecurityPolicyReportOnly": "",
+    "xContentTypeOptions": "nosniff",
+    "xRobotsTag": "none",
+    "xFrameOptions": "SAMEORIGIN",
+    "contentSecurityPolicy": "frame-src 'self'; frame-ancestors 'self'; object-src 'none';",
+    "xXSSProtection": "1; mode=block",
+    "strictTransportSecurity": "max-age=31536000; includeSubDomains"
+  },
+  "smtpServer": {},
+  "eventsEnabled": true,
+  "eventsListeners": ["jboss-logging"],
+  "enabledEventTypes": [
+    "LOGIN", "LOGIN_ERROR", "REGISTER", "REGISTER_ERROR",
+    "LOGOUT", "LOGOUT_ERROR", "FEDERATED_IDENTITY_LINK",
+    "FEDERATED_IDENTITY_LINK_ERROR", "IDENTITY_PROVIDER_LOGIN",
+    "IDENTITY_PROVIDER_LOGIN_ERROR"
+  ],
+  "adminEventsEnabled": true,
+  "adminEventsDetailsEnabled": true,
+  "attributes": {
+    "failureFactor": "30",
+    "actionTokenGeneratedByAdminLifespan": "43200",
+    "actionTokenGeneratedByUserLifespan": "300",
+    "webAuthnPolicyRpEntityNamePasswordless": "keycloak",
+    "webAuthnPolicySignatureAlgorithmsPasswordless": "[\"ES256\"]",
+    "webAuthnPolicyRpIdPasswordless": "",
+    "webAuthnPolicyAttestationConveyancePreferencePasswordless": "not specified",
+    "webAuthnPolicyAuthenticatorAttachmentPasswordless": "not specified",
+    "webAuthnPolicyRequireResidentKeyPasswordless": "not specified",
+    "webAuthnPolicyUserVerificationRequirementPasswordless": "not specified",
+    "webAuthnPolicyCreateTimeoutPasswordless": "0",
+    "webAuthnPolicyAvoidSameAuthenticatorRegisterPasswordless": "false"
+  }
+}
