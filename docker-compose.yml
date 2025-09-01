@@ -43,8 +43,6 @@ services:
       # Development settings (disable for production)
       KC_DEV_MODE: "false"
       KC_CACHE: local
-    ports:
-      - "8080:8080"
     depends_on:
       postgres:
         condition: service_healthy
@@ -61,7 +59,5 @@ services:
       context: ./examples/mock-wallet
       dockerfile: Dockerfile
     container_name: euid-mock-wallet
-    ports:
-      - "8081:80"
     profiles:
       - testing
