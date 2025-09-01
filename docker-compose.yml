@@ -45,9 +45,6 @@ services:
       KC_CACHE: local
     ports:
       - "8080:8080"
-    volumes:
-      # Mount themes and configurations if needed
-      - ./examples/config:/opt/keycloak/conf/examples:ro
     depends_on:
       postgres:
         condition: service_healthy
@@ -60,13 +57,15 @@ services:
 
   # Mock wallet endpoint for testing (optional)
   mock-wallet:
-    image: nginx:alpine
+    build:
+      context: ./examples/mock-wallet
+      dockerfile: Dockerfile
     container_name: euid-mock-wallet
     ports:
       - "8081:80"
-    volumes:
-      - ./examples/mock-wallet:/usr/share/nginx/html:ro
     profiles:
       - testing
 
+networks:
+  default:
     driver: bridge
