@@ -57,5 +57,5 @@ services:
   mock-wallet:
     build:
       context: ./examples/mock-wallet
-      dockerfile: ./examples/mock-wallet/Dockerfile
+      dockerfile: Dockerfile
     container_name: euid-mock-wallet
