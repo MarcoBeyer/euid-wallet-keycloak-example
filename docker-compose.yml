@@ -9,8 +9,6 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: keycloak_password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     networks:
       - euid-network
     healthcheck:
@@ -50,12 +48,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      # Persist Keycloak data
-      - keycloak_data:/opt/keycloak/data
       # Mount themes and configurations if needed
       - ./examples/config:/opt/keycloak/conf/examples:ro
-    networks:
-      - euid-network
     depends_on:
       postgres:
         condition: service_healthy
@@ -74,17 +68,7 @@ services:
       - "8081:80"
     volumes:
       - ./examples/mock-wallet:/usr/share/nginx/html:ro
-    networks:
-      - euid-network
     profiles:
       - testing
 
-volumes:
-  postgres_data:
-    driver: local
-  keycloak_data:
-    driver: local
-
-networks:
-  euid-network:
     driver: bridge
