@@ -38,7 +38,6 @@
     "addReadTokenRoleOnCreate": false,
     "authenticateByDefault": false,
     "linkOnly": false,
-    "firstBrokerLoginFlowAlias": "first broker login",
     "config": {
       "walletEndpoint": "https://wallet.example.com",
       "trustedIssuers": "did:web:issuer1.gov.example,did:web:issuer2.gov.example,did:web:member-state.eu",
@@ -94,25 +93,6 @@
       "syncMode": "INHERIT",
       "attribute": "nationality",
       "user.attribute": "nationality"
-    }
-  }],
-  "authenticationFlows": [{
-    "alias": "pid-authentication-flow",
-    "description": "Authentication flow for PID credentials",
-    "providerId": "basic-flow",
-    "topLevel": true,
-    "builtIn": false,
-    "authenticationExecutions": [{
-      "authenticator": "identity-provider-redirector",
-      "requirement": "ALTERNATIVE",
-      "priority": 10,
-      "authenticatorConfig": "eu-digital-wallet-config"
-    }]
-  }],
-  "authenticatorConfig": [{
-    "alias": "eu-digital-wallet-config",
-    "config": {
-      "defaultProvider": "eu-digital-wallet"
     }
   }],
   "roles": {
