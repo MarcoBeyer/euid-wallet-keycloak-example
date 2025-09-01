@@ -95,7 +95,7 @@ class SecurityConfigurationTest {
         String quotedInput = "text with \"quotes\" and 'apostrophes'";
         
         assertEquals("clean text", securityConfig.sanitizeInput(cleanInput));
-        assertEquals("scriptalert('xss')/script", securityConfig.sanitizeInput(dirtyInput));
+        assertEquals("scriptalert(xss)/script", securityConfig.sanitizeInput(dirtyInput));
         assertEquals("text with quotes and apostrophes", securityConfig.sanitizeInput(quotedInput));
         assertNull(securityConfig.sanitizeInput(null));
     }

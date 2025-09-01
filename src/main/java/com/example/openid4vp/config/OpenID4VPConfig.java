@@ -68,4 +68,11 @@ public class OpenID4VPConfig {
         String value = getConfigValue(key);
         return value != null ? value : defaultValue;
     }
+    
+    /**
+     * Get the underlying IdentityProviderModel
+     */
+    public IdentityProviderModel getModel() {
+        return model;
+    }
 }

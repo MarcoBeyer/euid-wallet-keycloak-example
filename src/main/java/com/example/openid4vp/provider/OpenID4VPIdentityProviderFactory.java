@@ -33,39 +33,36 @@ public class OpenID4VPIdentityProviderFactory
     }
     
     @Override
+    public IdentityProviderModel createConfig() {
+        IdentityProviderModel model = new IdentityProviderModel();
+        model.setProviderId(PROVIDER_ID);
+        return model;
+    }
+    
+    @Override
     public List<ProviderConfigProperty> getConfigProperties() {
         return Arrays.asList(
             createConfigProperty("walletEndpoint", "Wallet Endpoint", 
-                "OpenID4VP endpoint for wallet integration", ProviderConfigProperty.STRING_TYPE, true),
+                "OpenID4VP endpoint for wallet integration", ProviderConfigProperty.STRING_TYPE),
             createConfigProperty("trustedIssuers", "Trusted PID Issuers", 
-                "Comma-separated list of trusted PID issuer DIDs", ProviderConfigProperty.STRING_TYPE, true),
+                "Comma-separated list of trusted PID issuer DIDs", ProviderConfigProperty.STRING_TYPE),
             createConfigProperty("requireAgeVerification", "Require Age Verification", 
-                "Require age_over_18 claim in PID", ProviderConfigProperty.BOOLEAN_TYPE, false, "true"),
+                "Require age_over_18 claim in PID", ProviderConfigProperty.BOOLEAN_TYPE),
             createConfigProperty("presentationDefinition", "Custom Presentation Definition", 
-                "Custom JSON presentation definition (optional)", ProviderConfigProperty.TEXT_TYPE, false),
+                "Custom JSON presentation definition (optional)", ProviderConfigProperty.TEXT_TYPE),
             createConfigProperty("maxVPTokenSize", "Maximum VP Token Size", 
-                "Maximum size in bytes for VP tokens (default: 102400)", ProviderConfigProperty.STRING_TYPE, false, "102400"),
+                "Maximum size in bytes for VP tokens (default: 102400)", ProviderConfigProperty.STRING_TYPE),
             createConfigProperty("validationTimeout", "Validation Timeout", 
-                "VP validation timeout in seconds (default: 30)", ProviderConfigProperty.STRING_TYPE, false, "30")
+                "VP validation timeout in seconds (default: 30)", ProviderConfigProperty.STRING_TYPE)
         );
     }
     
-    private ProviderConfigProperty createConfigProperty(String name, String label, String helpText, 
-                                                       String type, boolean required) {
-        return createConfigProperty(name, label, helpText, type, required, null);
-    }
-    
-    private ProviderConfigProperty createConfigProperty(String name, String label, String helpText, 
-                                                       String type, boolean required, String defaultValue) {
+    private ProviderConfigProperty createConfigProperty(String name, String label, String helpText, String type) {
         ProviderConfigProperty property = new ProviderConfigProperty();
         property.setName(name);
         property.setLabel(label);
         property.setHelpText(helpText);
         property.setType(type);
-        property.setRequired(required);
-        if (defaultValue != null) {
-            property.setDefaultValue(defaultValue);
-        }
         return property;
     }
 }

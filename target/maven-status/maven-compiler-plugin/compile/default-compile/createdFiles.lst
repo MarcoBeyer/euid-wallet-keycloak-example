@@ -1,0 +1,8 @@
+com/example/openid4vp/config/OpenID4VPConfig.class
+com/example/openid4vp/provider/OpenID4VPIdentityProviderFactory.class
+com/example/openid4vp/validator/VPTokenValidator.class
+com/example/openid4vp/validator/VPTokenValidator$ValidationException.class
+com/example/openid4vp/model/PIDCredentials.class
+com/example/openid4vp/model/PIDCredentials$Builder.class
+com/example/openid4vp/provider/OpenID4VPIdentityProvider.class
+com/example/openid4vp/security/SecurityConfiguration.class
