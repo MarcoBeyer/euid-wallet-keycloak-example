@@ -59,5 +59,3 @@ services:
       context: ./examples/mock-wallet
       dockerfile: Dockerfile
     container_name: euid-mock-wallet
-    profiles:
-      - testing
