@@ -65,7 +65,3 @@ services:
       - "8081:80"
     profiles:
       - testing
-
-networks:
-  default:
-    driver: bridge
