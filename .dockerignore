@@ -1,5 +1,5 @@
 # Docker ignore file for optimized builds
-# Note: target/ is NOT ignored because we need the built JAR file
+# Note: target/ is conditionally ignored - keep the built JAR if it exists
 
 .git/
 .github/
@@ -8,6 +8,16 @@
 docker-compose.yml
 Dockerfile
 .dockerignore
+
+# Build artifacts (except the final JAR which we may want to use)
+target/classes/
+target/generated-sources/
+target/maven-status/
+target/test-classes/
+target/surefire-reports/
+target/*-sources.jar
+target/original-*.jar
+target/dependency-reduced-pom.xml
 
 # IDE files
 .idea/
@@ -41,3 +51,6 @@ node_modules/
 
 # Optional REPL history
 .node_repl_history
+
+# Environment files (keep .env.example)
+.env

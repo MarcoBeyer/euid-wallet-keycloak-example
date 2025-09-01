@@ -36,7 +36,7 @@ cd euid-wallet-keycloak-example
 ```
 
 This will:
-- Build the OpenID4VP provider
+- Build the OpenID4VP provider from source inside Docker
 - Start Keycloak with PostgreSQL database
 - Import the example realm configuration
 - Start a mock wallet for testing

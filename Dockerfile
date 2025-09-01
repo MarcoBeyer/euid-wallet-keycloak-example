@@ -1,9 +1,21 @@
-# Custom Keycloak with OpenID4VP provider
+# Multi-stage build for OpenID4VP Keycloak provider
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY pom.xml .
+COPY src ./src/
+
+# Build the application
+RUN mvn clean package -DskipTests -B
+
+# Stage 2: Create the final Keycloak image
 FROM quay.io/keycloak/keycloak:22.0.5
 
-# Copy the pre-built provider JAR to Keycloak providers directory
-# Build the JAR first with: mvn clean package
-COPY target/openid4vp-keycloak-provider-1.0.0.jar /opt/keycloak/providers/
+# Copy the built provider JAR from the builder stage
+COPY --from=builder /app/target/openid4vp-keycloak-provider-1.0.0.jar /opt/keycloak/providers/
 
 # Copy realm configuration for import
 COPY examples/config/realm-config.json /opt/keycloak/data/import/

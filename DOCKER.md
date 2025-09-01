@@ -21,7 +21,7 @@ cd euid-wallet-keycloak-example
 ```
 
 The startup script will:
-- Build the OpenID4VP Keycloak provider from source
+- Build the OpenID4VP Keycloak provider from source inside Docker
 - Start PostgreSQL database
 - Start Keycloak with the provider pre-installed
 - Import the example realm configuration
@@ -132,10 +132,11 @@ services:
 
 ### Keycloak
 
-- **Image**: Custom build based on `quay.io/keycloak/keycloak:22.0.5`
+- **Image**: Custom multi-stage build based on `quay.io/keycloak/keycloak:22.0.5`
 - **Port**: 8080
+- **Build**: Java application built inside Docker container using Maven
 - **Features**: 
-  - OpenID4VP provider pre-installed
+  - OpenID4VP provider built and installed automatically
   - Example realm pre-configured
   - PostgreSQL persistence
 

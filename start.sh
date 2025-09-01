@@ -27,20 +27,9 @@ if [ ! -f .env ]; then
     echo "✅ .env file created. You can customize the configuration by editing .env"
 fi
 
-# Build the OpenID4VP provider first
-echo "🔨 Building OpenID4VP provider..."
-mvn clean package -q
-
-if [ ! -f target/openid4vp-keycloak-provider-1.0.0.jar ]; then
-    echo "❌ Failed to build OpenID4VP provider. Check Maven output above."
-    exit 1
-fi
-
-echo "✅ OpenID4VP provider built successfully!"
-
 # Build and start the services
 echo "🔨 Building and starting services..."
-echo "This may take a few minutes on first run..."
+echo "This may take a few minutes on first run as the Java application is built inside Docker..."
 
 if docker compose version &> /dev/null; then
     # Use new docker compose command
