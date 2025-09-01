@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock EU Digital Identity Wallet</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wallet-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+        }
+        .eu-flag {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .credential-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .credential-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .credential-field {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #495057;
+        }
+        .btn-present {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 20px 10px;
+        }
+        .btn-present:hover {
+            background: #2980b9;
+        }
+        .btn-cancel {
+            background: #95a5a6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 20px 10px;
+        }
+        .btn-cancel:hover {
+            background: #7f8c8d;
+        }
+        .info-text {
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="wallet-container">
+        <div class="eu-flag">🇪🇺</div>
+        <h1>EU Digital Identity Wallet</h1>
+        <p class="subtitle">Mock Wallet for Testing</p>
+        
+        <div class="warning">
+            <strong>⚠️ Testing Environment</strong><br>
+            This is a mock wallet for demonstration purposes only. 
+            Do not use in production.
+        </div>
+
+        <div class="credential-card">
+            <div class="credential-title">📋 Personal Identification Data (PID)</div>
+            <div class="credential-field"><strong>Given Name:</strong> John</div>
+            <div class="credential-field"><strong>Family Name:</strong> Doe</div>
+            <div class="credential-field"><strong>Birth Date:</strong> 1990-01-15</div>
+            <div class="credential-field"><strong>Age Over 18:</strong> Yes</div>
+            <div class="credential-field"><strong>Nationality:</strong> DE</div>
+            <div class="credential-field"><strong>Issuer:</strong> did:web:member-state.eu</div>
+        </div>
+
+        <p style="color: #2c3e50; font-weight: bold;">
+            Keycloak is requesting access to your PID credentials for authentication.
+        </p>
+
+        <button class="btn-present" onclick="presentCredentials()">
+            ✅ Present Credentials
+        </button>
+        <button class="btn-cancel" onclick="cancelPresentation()">
+            ❌ Cancel
+        </button>
+
+        <div class="info-text">
+            <strong>What will be shared:</strong><br>
+            • Your given name and family name<br>
+            • Your birth date and age verification<br>
+            • Your nationality<br>
+            • Credential validity information
+        </div>
+    </div>
+
+    <script>
+        function presentCredentials() {
+            // In a real wallet, this would create a proper VP token
+            // For this mock, we just show what would happen
+            alert('🎉 Success! In a real implementation, this would:\n\n' +
+                  '1. Create a Verifiable Presentation with your PID\n' +
+                  '2. Sign it cryptographically\n' +
+                  '3. Return it to Keycloak for verification\n' +
+                  '4. Complete the authentication process\n\n' +
+                  'Your identity would be verified and you would be logged in.');
+        }
+
+        function cancelPresentation() {
+            alert('❌ Authentication cancelled. You will be redirected back to Keycloak.');
+        }
+
+        // Parse URL parameters to show what Keycloak sent
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('presentation_definition')) {
+            console.log('Presentation Definition received:', urlParams.get('presentation_definition'));
+        }
+        if (urlParams.has('nonce')) {
+            console.log('Nonce received:', urlParams.get('nonce'));
+        }
+    </script>
+</body>
+</html>

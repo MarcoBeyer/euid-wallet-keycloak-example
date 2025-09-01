@@ -20,7 +20,38 @@ The implementation extends Keycloak's Service Provider Interface (SPI) architect
 - `SecurityConfiguration`: Security controls and nonce generation
 - `PIDCredentials`: Data model for extracted PID attributes
 
-## Installation
+## Quick Start with Docker
+
+### Option 1: Docker Compose (Recommended)
+
+The fastest way to try the OpenID4VP provider is using Docker Compose:
+
+```bash
+# Clone the repository
+git clone https://github.com/MarcoBeyer/euid-wallet-keycloak-example.git
+cd euid-wallet-keycloak-example
+
+# Start the example (builds everything automatically)
+./start.sh
+```
+
+This will:
+- Build the OpenID4VP provider
+- Start Keycloak with PostgreSQL database
+- Import the example realm configuration
+- Start a mock wallet for testing
+
+**Access URLs:**
+- Keycloak Admin Console: http://localhost:8080/admin (admin/admin)
+- Test Authentication: http://localhost:8080/realms/eudi-authentication/account
+- Mock Wallet: http://localhost:8081
+
+To stop the services:
+```bash
+./stop.sh
+```
+
+### Option 2: Manual Installation
 
 ### 1. Build the Provider
 

@@ -1,0 +1,43 @@
+# Docker ignore file for optimized builds
+# Note: target/ is NOT ignored because we need the built JAR file
+
+.git/
+.github/
+*.md
+.gitignore
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# Logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
